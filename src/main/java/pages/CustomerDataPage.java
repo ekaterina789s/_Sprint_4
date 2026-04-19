@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CustomerDataForm{
+public class CustomerDataPage {
     private WebDriver driver;
 
     private final By nameField = By.xpath(".//input[@placeholder='* Имя']");
@@ -14,32 +14,32 @@ public class CustomerDataForm{
     private final By buttonNext = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
 
-    public CustomerDataForm(WebDriver driver){
+    public CustomerDataPage(WebDriver driver){
         this.driver = driver;
     }
 
-    public CustomerDataForm writeName(String name){
+    public CustomerDataPage writeName(String name){
         driver.findElement(nameField).sendKeys(name);
         return this;
     }
     //Ввод значения в поле "Фамилия"
-    public CustomerDataForm writeSurname(String surname){
+    public CustomerDataPage writeSurname(String surname){
         driver.findElement(surnameField).sendKeys(surname);
         return this;
     }
     //Ввод значения в поле "Адрес"
-    public CustomerDataForm writeAddress(String address){
+    public CustomerDataPage writeAddress(String address){
         driver.findElement(addressField).sendKeys(address);
         return this;
     }
     //Ввод значения в поле "Станция метро"
-    public CustomerDataForm selectMetro(String metro){
+    public CustomerDataPage selectMetro(String metro){
         driver.findElement(metroField).click();
         driver.findElement(By.xpath(".//ul[@class='select-search__options']/li//div[text()='" + metro + "']/parent::button")).click();
         return this;
     }
     //Ввод значения в поле "Номер телефона"
-    public CustomerDataForm writePhoneNumber(String phoneNumber){
+    public CustomerDataPage writePhoneNumber(String phoneNumber){
         driver.findElement(phoneField).sendKeys(phoneNumber);
         return this;
     }

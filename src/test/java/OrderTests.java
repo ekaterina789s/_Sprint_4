@@ -1,13 +1,17 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pages.AboutRentForm;
-import pages.CustomerDataForm;
+import org.openqa.selenium.WebElement;
+import pages.AboutRentPage;
+import pages.CustomerDataPage;
 import pages.MainPage;
 
+import static org.junit.Assert.assertTrue;
+
 @RunWith(Parameterized.class)
-public class OrderTests extends BaseUITest{
+public class OrderTests extends BaseUITest {
     WebDriver driver;
 
     //поля класса(те, что в форме)
@@ -34,7 +38,7 @@ public class OrderTests extends BaseUITest{
     }
 
     @Parameterized.Parameters
-    public static Object[][] dataCustomer(){
+    public static Object[][] dataCustomer() {
         return new Object[][]{
                 {"Мария", "Петрова", "Москва ул.Ленина д. 120", "Сокольники", "89185630405", "25.04.2026", "сутки", "grey", "хочу кататься"},
                 {"Владимир", "Кузнецов", "Москва ул. Пушкина д.30", "Красносельская", "89884058207", "01.05.2026", "двое суток", "black", "всегда хотел"},
@@ -44,26 +48,29 @@ public class OrderTests extends BaseUITest{
     @Test
     public void makeOrderHeader() {
         MainPage mainPage = new MainPage(driver);
-        CustomerDataForm customerDataForm = new CustomerDataForm(driver);
-        AboutRentForm aboutRentForm = new AboutRentForm(driver);
+        CustomerDataPage customerDataForm = new CustomerDataPage(driver);
+        AboutRentPage aboutRentPage = new AboutRentPage(driver);
 
         mainPage.clickButtonCookie();
         mainPage.clickButtonOrder1();
         customerDataForm.enterCustomerData(name, surname, address, metro, phone);
-        aboutRentForm.enterRentalData(dateDelivery, rentalPeriod, color, comment);
+        aboutRentPage.enterRentalData(dateDelivery, rentalPeriod, color, comment);
+        WebElement element = driver.findElement(By.xpath(".//div[text()='Заказ оформлен']"));
+        assertTrue("Должно отображаться окно с успешным оформлением заказа", element.isDisplayed());
     }
+
     @Test
-    public void makeOrderInPage(){
+    public void makeOrderInPage() {
         MainPage mainPage = new MainPage(driver);
-        CustomerDataForm customerDataForm = new CustomerDataForm(driver);
-        AboutRentForm aboutRentForm = new AboutRentForm(driver);
+        CustomerDataPage customerDataForm = new CustomerDataPage(driver);
+        AboutRentPage aboutRentPage = new AboutRentPage(driver);
 
         mainPage.clickButtonCookie();
         mainPage.clickButtonOrder2();
         customerDataForm.enterCustomerData(name, surname, address, metro, phone);
-        aboutRentForm.enterRentalData(dateDelivery, rentalPeriod, color, comment);
-
-
+        aboutRentPage.enterRentalData(dateDelivery, rentalPeriod, color, comment);
+        WebElement element = driver.findElement(By.xpath(".//div[text()='Заказ оформлен']"));
+        assertTrue("Должно отображаться окно с успешным оформлением заказа", element.isDisplayed());
     }
 
 }

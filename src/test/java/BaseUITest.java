@@ -13,6 +13,7 @@ public class BaseUITest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.manage().window().fullscreen();
         //WebDriverManager.firefoxdriver().setup();
         //driver = new FirefoxDriver();
 

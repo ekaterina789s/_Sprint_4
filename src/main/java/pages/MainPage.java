@@ -30,16 +30,18 @@ public class MainPage {
     //метод скролла и клик в кнопку принятия куки
     public void clickButtonCookie() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement button = wait.until(driver ->
-                    driver.findElement(cookieButton)
-            );
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", button);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(cookieButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", button);
             button.click();
-        } catch (NoSuchElementException e) {
-            System.out.println("Кнопка не найдена");
         } catch (TimeoutException e) {
-            System.out.println("Элемент не появился в течение 10 секунд");
+            System.out.println("Кнопка куки не появилась в течение 15 секунд");
+        } catch (ElementClickInterceptedException e) {
+            System.out.println("Элемент перекрыт другим элементом, используем JavaScript для клика");
+            WebElement button = driver.findElement(cookieButton);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+        } catch (NoSuchElementException e) {
+            System.out.println("Кнопка куки не найдена на странице");
         }
     }
 

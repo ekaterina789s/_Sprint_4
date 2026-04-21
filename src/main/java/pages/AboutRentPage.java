@@ -25,7 +25,10 @@ public class AboutRentPage {
 
     //Сообщение об успешном создании заказа
     private final By orderPlaced = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and contains(text(), 'Заказ оформлен')]");
-
+    //геттер для получения поля orderPlaced
+    public By getOrderPlaced(){
+        return orderPlaced;
+    }
 
     public AboutRentPage(WebDriver driver)
     {
@@ -41,7 +44,7 @@ public class AboutRentPage {
     //Выбор срока аренды
     public AboutRentPage selectRentalPeriod (String rentPeriod){
         driver.findElement(rentalPeriodDropDownField).click();
-        driver.findElement(By.xpath(".//div[(@class='Dropdown-option' and text()='" + rentPeriod + "')]")).click();
+        driver.findElement(By.xpath(".//div[(@class='Dropdown-option' and text()='" + rentPeriod + "']")).click();
         return this;
     }
 

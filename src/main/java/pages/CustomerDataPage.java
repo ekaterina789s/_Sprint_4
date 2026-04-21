@@ -14,6 +14,7 @@ public class CustomerDataPage {
     private final By buttonNext = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
 
+
     public CustomerDataPage(WebDriver driver){
         this.driver = driver;
     }

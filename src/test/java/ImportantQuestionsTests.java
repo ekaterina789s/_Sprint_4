@@ -5,6 +5,7 @@ import pages.MainPage;
 
 import static org.junit.Assert.assertEquals;
 
+
 @RunWith(Parameterized.class)
 public class ImportantQuestionsTests extends BaseUITest{
 

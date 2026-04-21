@@ -30,6 +30,7 @@ public class AboutRentPage {
         return orderPlaced;
     }
 
+
     public AboutRentPage(WebDriver driver)
     {
         this.driver = driver;

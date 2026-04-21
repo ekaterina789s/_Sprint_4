@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class OrderTests extends BaseUITest {
-    WebDriver driver;
+
 
     //поля класса(те, что в форме)
     private final String name;

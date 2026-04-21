@@ -27,6 +27,7 @@ public class MainPage {
     }
 
 
+
     //метод скролла и клик в кнопку принятия куки
     public void clickButtonCookie() {
         try {

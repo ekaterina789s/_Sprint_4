@@ -21,10 +21,15 @@ public class AboutRentPage {
     private final By orderConfirmationButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
 
     //Кнопка "Да" для подтверждения заказа
-    private final By yesConfirmationButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Да']");
+    private final By yesConfirmationButton = By.xpath(".//button[contains(text(),  'Да')]");
 
-    //Сообщение об успешном создании заказа
+    //Всплывающее окно "Заказ оформлен"
     private final By orderPlaced = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and contains(text(), 'Заказ оформлен')]");
+
+    //Поле с названием страницы "Про аренду"-нужно для того, чтобы закрыть поп-ап выбора даты
+    private final By pageTitle = By.xpath(".//div[text()='Про аренду']");
+
+
     //геттер для получения поля orderPlaced
     public By getOrderPlaced(){
         return orderPlaced;
@@ -43,9 +48,10 @@ public class AboutRentPage {
     }
 
     //Выбор срока аренды
-    public AboutRentPage selectRentalPeriod (String rentPeriod){
+    public AboutRentPage selectRentalPeriod (String rentalPeriod){
+        driver.findElement(pageTitle).click();
         driver.findElement(rentalPeriodDropDownField).click();
-        driver.findElement(By.xpath(".//div[(@class='Dropdown-option' and text()='" + rentPeriod + "']")).click();
+        driver.findElement(By.xpath(".//div[@class='Dropdown-option' and text()='" + rentalPeriod + "']")).click();
         return this;
     }
 
@@ -69,19 +75,21 @@ public class AboutRentPage {
 
     //Клик в кнопку "Да"
     public void clickYesConfirmationButton(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(yesConfirmationButton));
         driver.findElement(yesConfirmationButton).click();
     }
 
     // Ожидание заголовка Заказ оформлен
     public void waitOrderPlaced() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(orderPlaced));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(orderPlaced));
     }
 
     //Метод ввода необходимых данных
-    public void enterRentalData(String deliveryDate, String rentPeriod, String color, String comment){
+    public void enterRentalData(String deliveryDate, String rentalPeriod, String color, String comment){
         writeDeliveryDate(deliveryDate)
-                .selectRentalPeriod(rentPeriod)
+                .selectRentalPeriod(rentalPeriod)
                 .selectColor(color)
                 .writeComment(comment)
                 .clickOrderConfirmationButton();
